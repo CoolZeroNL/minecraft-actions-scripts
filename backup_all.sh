@@ -6,5 +6,16 @@ folder=${2:-''}
 NOW=$(date +"%m-%d-%Y-%H-%M-%S")
 FILE="backup.$NOW.$hostname.tar.gz"
 
-sudo tar -czf /home/minecraft/backuped/$FILE /home/minecraft/deployed/$folder/
-echo "done"
+sudo mkdir -p /home/minecraft/backuped/$hostname
+
+sudo tar -czf /home/minecraft/backuped/$hostname/$FILE /home/minecraft/deployed/$folder/
+if [[ $? -ne 0 ]]
+then
+    echo "Something went wrong"
+    exit 1
+else
+    echo "Job complete"
+    
+    # Remove all files more then 10 copies.
+    sudo rm -f $(sudo ls -1t /home/minecraft/backuped/$hostname | grep backup | grep -v world | grep $hostname | tail -n +11)
+fi
