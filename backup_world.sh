@@ -16,5 +16,5 @@ else
     echo "Job complete"
     
     # Remove all files more then 10 copies.
-    rm -f $(ls -1t /home/minecraft/backuped/ | tail -n +11)
+    rm -f $(ls -1t /home/minecraft/backuped/$hostname | grep backup-world | grep $hostname | tail -n +11)
 fi
