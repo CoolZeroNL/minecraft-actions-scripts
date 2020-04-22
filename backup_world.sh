@@ -19,4 +19,7 @@ else
     # sudo rm -f $(sudo ls -1t /home/minecraft/backuped/$hostname | grep backup-world | grep $hostname | tail -n +11)
     sudo find /home/minecraft/backuped/$hostname -mindepth 1 -maxdepth 1 -printf '%T@\t%p\n' | sort -n | grep 'backup-world' | head -n +1 | cut -f2- | tr '\n' '\0' | sudo xargs -0 rm -r --
     
+    # housekeeping, (keep last 10 files)
+    # ls -d -1tr /var/log/* | head -n -10 | xargs -d '\n' rm -f
+
 fi
